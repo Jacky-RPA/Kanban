@@ -17,6 +17,7 @@ import { PanelAsistente } from "@/components/asistente/panel-asistente"
 import { useAsistente } from "@/asistente/use-asistente"
 import { cn } from "@/lib/utils"
 import { useTareas } from "@/hooks/use-tareas"
+import { guardadoSoloEnNavegador } from "@/services/tareas-api"
 import { ESTADOS, PRIORIDADES, type Estado, type Prioridad, type Tarea } from "@/types/tarea"
 
 // Pantalla principal: encabezado, buscador, filtro de prioridad y las tres columnas
@@ -111,6 +112,7 @@ export default function HomePage() {
           <h1 className="text-2xl font-semibold tracking-tight">Tablero de tareas</h1>
           <p className="text-sm text-muted-foreground">
             {cargando ? "Cargando tareas…" : `${tareas.length} tareas en total`}
+            {!cargando && guardadoSoloEnNavegador() && " · guardadas solo en este navegador"}
           </p>
         </div>
         <div className="flex items-center gap-2">

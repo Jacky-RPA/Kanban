@@ -5,7 +5,7 @@ import { CATEGORIAS, ESTADOS, PRIORIDADES, type DatosTarea, type Estado, type Ta
 import type { CambioPropuesto, PropuestaAccion } from "./tipos"
 
 // Ejecutores de las herramientas que pide el LLM. Trabajan siempre sobre las tareas recién leídas
-// del almacenamiento y escriben únicamente a través de las funciones existentes (useTareas → tareas-locales).
+// del servidor y escriben únicamente a través de las funciones existentes (useTareas → tareas-api).
 // El backend ya validó el formato de los argumentos; aquí se valida contra los datos reales
 // (que el id exista, que el cambio tenga sentido…).
 // Para agregar una herramienta nueva: declárala en server/src/asistente/herramientas.ts y añade su ejecutor aquí.

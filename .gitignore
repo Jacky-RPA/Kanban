@@ -30,5 +30,8 @@ dist-ssr
 .env
 .env*.local
 
+# Tareas guardadas en local sin base de datos
+.data
+
 # Vercel
 .vercel
