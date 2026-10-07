@@ -2,6 +2,7 @@ import { ApiError } from "@google/genai"
 import express, { type NextFunction, type Request, type Response } from "express"
 import { z } from "zod"
 import { avanzarConversacion, ErrorAsistente, type MensajeApi } from "./asistente/servicio.js"
+import { urlBaseDatos, variablesBaseDatos } from "./tareas/repositorio.js"
 import { rutasTareas } from "./tareas/rutas.js"
 
 // Validación del cuerpo de la petición (historial con bloques text / tool_use / tool_result)
@@ -32,7 +33,8 @@ app.get("/api/salud", (_req, res) => {
   res.json({
     ok: true,
     configurado: Boolean(process.env.GEMINI_API_KEY),
-    baseDatos: process.env.DATABASE_URL || process.env.POSTGRES_URL ? "postgres" : "archivo local",
+    baseDatos: urlBaseDatos() ? "postgres" : process.env.VERCEL ? "sin configurar" : "archivo local",
+    variablesBaseDatos: variablesBaseDatos(), // solo los nombres, nunca los valores
   })
 })
 
