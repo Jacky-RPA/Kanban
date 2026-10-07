@@ -24,6 +24,11 @@ export default defineConfig([
     },
   },
   {
+    // Los componentes de shadcn y el proveedor de tema exportan variantes/contexto a propósito
+    files: ['src/components/ui/**/*.tsx', 'src/providers/theme-provider.tsx'],
+    rules: { 'react-refresh/only-export-components': 'off' },
+  },
+  {
     files: ['server/**/*.ts', 'api/**/*.ts'],
     languageOptions: { globals: globals.node },
   },
