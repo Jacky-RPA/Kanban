@@ -113,7 +113,7 @@ function aContenidosGemini(historial: MensajeApi[]): Content[] {
 
 // Un paso de la conversación: envía el historial a Gemini y devuelve su respuesta.
 // El backend no ejecuta las herramientas: valida sus argumentos y se las pasa al frontend, que las
-// ejecuta con la API de tareas existente (/api/tareas) y devuelve el resultado.
+// ejecuta sobre las tareas guardadas en el navegador y devuelve el resultado.
 export async function avanzarConversacion(historial: MensajeApi[], contexto: ContextoUsuario): Promise<RespuestaAsistente> {
   if (!process.env.GEMINI_API_KEY) {
     throw new ErrorAsistente("El asistente no está configurado: falta GEMINI_API_KEY en las variables de entorno.", 503)
