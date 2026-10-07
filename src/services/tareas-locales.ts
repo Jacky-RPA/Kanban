@@ -1,7 +1,8 @@
 import type { DatosTarea, Tarea } from "@/types/tarea"
 
-// Respaldo cuando el servidor no tiene base de datos (ver tareas-api.ts): las tareas se guardan
-// en el navegador (localStorage) y cada navegador tiene su propio tablero.
+// Las tareas se guardan en el navegador (localStorage): no hace falta base de datos.
+// Cada navegador tiene su propio tablero. Si algún día se usa una base de datos,
+// solo se reemplaza este archivo (useTareas no cambia).
 
 const CLAVE = "kanban:tareas"
 

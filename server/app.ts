@@ -2,8 +2,6 @@ import { ApiError } from "@google/genai"
 import express, { type NextFunction, type Request, type Response } from "express"
 import { z } from "zod"
 import { avanzarConversacion, ErrorAsistente, type MensajeApi } from "./asistente/servicio.js"
-import { urlBaseDatos, variablesBaseDatos } from "./tareas/repositorio.js"
-import { rutasTareas } from "./tareas/rutas.js"
 
 // Validación del cuerpo de la petición (historial con bloques text / tool_use / tool_result)
 const esquemaPeticion = z.object({
@@ -22,20 +20,14 @@ const esquemaPeticion = z.object({
   }),
 })
 
-// Backend de la app: tareas y Asistente IA. En local lo arranca server/dev.ts; en Vercel, api/index.ts.
+// Backend del Asistente IA (guarda la API key de Gemini). En local lo arranca server/dev.ts; en Vercel, api/index.ts.
+// Las tareas se guardan en el navegador (src/services/tareas-locales.ts), no aquí.
 // El frontend se sirve desde el mismo dominio, así que no hace falta CORS.
 export const app = express()
 app.use(express.json({ limit: "5mb" }))
 
-app.use("/api/tareas", rutasTareas)
-
 app.get("/api/salud", (_req, res) => {
-  res.json({
-    ok: true,
-    configurado: Boolean(process.env.GEMINI_API_KEY),
-    baseDatos: urlBaseDatos() ? "postgres" : process.env.VERCEL ? "sin configurar" : "archivo local",
-    variablesBaseDatos: variablesBaseDatos(), // solo los nombres, nunca los valores
-  })
+  res.json({ ok: true, configurado: Boolean(process.env.GEMINI_API_KEY) })
 })
 
 app.post("/api/asistente/chat", async (req, res, next) => {
